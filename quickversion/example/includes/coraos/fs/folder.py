@@ -11,8 +11,14 @@ class Folder:
         self.path = os.path.abspath(path)
     
     def is_empty(self):
-        if len(os.listdir(self.path)) != 0:
-            return False
+        if len(os.listdir(self.path)) == 0:
+            return True
+
+    def new_child_folder(self, name):
+        try:
+            Folder("{}/{}".format(self.path, name))
+        except FolderNotFound:
+            os.mkdir("{}/{}".format(self.path, name))
 
 
 class TypeERROR(Exception):
